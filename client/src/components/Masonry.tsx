@@ -21,14 +21,13 @@ const Masonry = ({
   fetchMore,
 }: TProps) => {
   const [width] = useWindowSize();
-  const { columnWidth, columnTotal } = getColumnWidthAndTotal(width);
 
   useEffect(() => {
     // debounce still looks buggy
-    const loadMore = debounce(fetchMore, 1000, {
+    const debounced = debounce(fetchMore, 1000, {
       leading: true,
     });
-    const cb = () => scrollForMore(loadMore);
+    const cb = () => scrollForMore(debounced);
 
     window.addEventListener('scroll', cb, {
       passive: true,
@@ -39,10 +38,11 @@ const Masonry = ({
     };
   }, []);
 
-  const columns = useMemo(() => {
+  const { columns, columnWidth } = useMemo(() => {
+    const { columnWidth, columnTotal } = getColumnWidthAndTotal(width);
     const cols = getColumnedPictures(columnTotal, data);
 
-    return cols;
+    return { columns: cols, columnWidth };
   }, [data, width]);
 
   if (loadingFirst) return <p className="loader-first">full screen loader</p>;

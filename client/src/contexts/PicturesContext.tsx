@@ -72,14 +72,13 @@ function PicturesProvider(props: any) {
       setLoadingMore(true);
     }
 
-    fetch(`http://localhost:3000/data?chunk=${chunk}&search=${search || ''}`)
-      .then((res) =>
-        res.json().then((res) => {
-          setData((pics) => [...pics, ...res]);
-          setCurrentData(res);
-          setIsLoadedAll(res.length === 0 ? true : false);
-        })
-      )
+    fetch(`http://localhost:3001/data?chunk=${chunk}&search=${search || ''}`)
+      .then((res) => res.json())
+      .then((res) => {
+        setData((pics) => [...pics, ...res]);
+        setCurrentData(res);
+        setIsLoadedAll(res.length === 0 ? true : false);
+      })
       .catch((err) => setError(err))
       .finally(() => {
         setLoadingFirst(false);

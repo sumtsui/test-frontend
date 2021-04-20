@@ -11,7 +11,7 @@ function useWindowSize() {
   const context = useContext(WindowSizeContext);
 
   if (!context)
-    throw new Error('useWindowSize must be used within a PicturesProvider');
+    throw new Error('useWindowSize must be used within a WindowSizeProvier');
 
   return context;
 }

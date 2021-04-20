@@ -7,7 +7,7 @@ const Search = () => {
   const { fetchData, result } = usePicturesLazy();
   const location = useLocation();
   const chunk = useRef(1);
-  const searchTerm = useRef(location.pathname.replace('/search/', '')); // useRef to deal with stale closure
+  const searchTerm = useRef(''); // useRef to deal with stale closure
 
   useEffect(() => {
     searchTerm.current = location.pathname.replace('/search/', '');
